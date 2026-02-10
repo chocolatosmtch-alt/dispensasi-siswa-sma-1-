@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Dispensasi Siswa - SMA Negeri 1 Magetan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="school-header">
+                <div class="school-logo">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="school-info">
+                    <h1>SMA NEGERI 1 MAGETAN</h1>
+                    <p>Sistem Dispensasi Siswa</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="input-section card">
+                    <h2><i class="fas fa-edit"></i> Form Pengajuan Dispensasi</h2>
+                    <form id="dispensationForm">
+                        <div class="form-group">
+                            <label for="studentName">Nama Lengkap Siswa</label>
+                            <input type="text" id="studentName" placeholder="Masukkan nama lengkap siswa" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentClass">Kelas</label>
+                            <select id="studentClass" required>
+                                <option value="">Pilih Kelas</option>
+                                <option value="X IPA 1">X IPA 1</option>
+                                <option value="X IPA 2">X IPA 2</option>
+                                <option value="X IPS 1">X IPS 1</option>
+                                <option value="X IPS 2">X IPS 2</option>
+                                <option value="XI IPA 1">XI IPA 1</option>
+                                <option value="XI IPA 2">XI IPA 2</option>
+                                <option value="XI IPS 1">XI IPS 1</option>
+                                <option value="XI IPS 2">XI IPS 2</option>
+                                <option value="XII IPA 1">XII IPA 1</option>
+                                <option value="XII IPA 2">XII IPA 2</option>
+                                <option value="XII IPS 1">XII IPS 1</option>
+                                <option value="XII IPS 2">XII IPS 2</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reason">Alasan Dispensasi</label>
+                            <select id="reason" required>
+                                <option value="">Pilih Alasan</option>
+                                <option value="Keperluan Keluarga">Keperluan Keluarga</option>
+                                <option value="Kegiatan Sekolah">Kegiatan Sekolah</option>
+                                <option value="Kesehatan">Kesehatan</option>
+                                <option value="Lomba/Academik">Lomba/Academik</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customReason">Keterangan Tambahan (Opsional)</label>
+                            <textarea id="customReason" placeholder="Jelaskan alasan dispensasi secara detail (jika diperlukan)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="duration">Durasi Waktu</label>
+                            <div class="duration-input">
+                                <input type="number" id="duration" min="1" max="8" value="1" required>
+                                <select id="timeUnit">
+                                    <option value="jam">Jam</option>
+                                    <option value="hari">Hari</option>
+                                </select>
+                            </div>
+                            <small class="form-hint">Maksimal 8 jam pembelajaran untuk dispensasi harian</small>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Ajukan Dispensasi
+                        </button>
+                    </form>
+                </section>
+
+                <section class="list-section card">
+                    <h2><i class="fas fa-list-alt"></i> Daftar Siswa Sedang Dispensasi</h2>
+                    <div class="table-container">
+                        <table id="dispensationTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Alasan</th>
+                                    <th>Durasi</th>
+                                    <th>Waktu Pengajuan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Data akan dimasukkan oleh JavaScript -->
+                            </tbody>
+                        </table>
+                        <div class="empty-state" id="emptyState">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Tidak ada siswa yang sedang dispensasi saat ini.</p>
+                        </div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Dispensasi:</span>
+                            <span class="stat-value" id="totalCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Dispensasi Hari Ini:</span>
+                            <span class="stat-value" id="todayCount">0</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© 2023 SMA Negeri 1 Magetan. Sistem Dispensasi Siswa v1.0</p>
+            <p>Jl. Pahlawan No. 123, Magetan, Jawa Timur</p>
+        </footer>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle"></i> Dispensasi Diajukan</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="notificationMessage">Dispensasi berhasil diajukan untuk siswa.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-confirm">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
